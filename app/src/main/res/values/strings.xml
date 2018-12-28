@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">JustDraw</string>
+    <string name="action_settings">Settings</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="settings">Settings</string>
+</resources>
