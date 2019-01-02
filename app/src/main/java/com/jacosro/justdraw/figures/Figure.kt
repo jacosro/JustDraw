@@ -8,7 +8,6 @@ import com.jacosro.justdraw.util.Paints
 abstract class Figure(var paint: Paint) {
 
     var isToRemove = false
-    private set
 
     abstract fun draw(canvas: Canvas)
 

@@ -54,10 +54,8 @@ class DrawingView @JvmOverloads constructor(
     }
 
     fun undoLastAction() {
-        figures.getLast()?.let {
-            it.markToRemove()
-            invalidate()
-        }
+        figures.getLast().markToRemove()
+        invalidate()
     }
 
     fun canUndoLastAction(): Boolean {
@@ -70,7 +68,7 @@ class DrawingView @JvmOverloads constructor(
     }
 
     fun canRedoLastAction(): Boolean {
-        return false // At the moment, we cannot redo actions
+        return figures.removedSize() > 0
     }
 
     fun setOnActionListener(actionListener: OnActionListener) {
@@ -78,7 +76,8 @@ class DrawingView @JvmOverloads constructor(
     }
 
     fun redoLastAction() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        figures.recoverLastRemoved()
+        invalidate()
     }
 }
 
