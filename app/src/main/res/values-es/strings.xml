@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JustDraw</string>
+    <string name="action_settings">Configuración</string>
+    <string name="undo">Deshacer</string>
+    <string name="redo">Rehacer</string>
+    <string name="settings">Configuración</string>
+    <string name="select_drawer">Seleccionar modo de dibujo:</string>
+    <string name="select_color">Seleccionar color:</string>
+    <string name="clear">Borrar lienzo</string>
+
+    <string-array name="drawers">
+        <item>Borrador</item>
+        <item>Dibujo libre</item>
+        <item>Dibujar líneas</item>
+        <item>Dibujar rectángulos</item>
+        <item>Dibujar triángulos</item>
+    </string-array>
+</resources>

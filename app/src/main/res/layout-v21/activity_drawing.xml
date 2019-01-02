@@ -7,7 +7,7 @@
     tools:context=".activities.DrawingActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/lightGreen"
@@ -18,10 +18,10 @@
 
         <ImageButton
             android:id="@+id/drawerButton"
+            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:padding="10dp"
             android:tint="@color/lightGreen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,10 +29,13 @@
 
         <ImageButton
             android:id="@+id/colorButton"
+            style="@android:style/Widget.Material.Light.Button.Borderless.Small"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="false"
             android:background="@color/lightGreen"
-            android:padding="10dp"
+            android:cropToPadding="false"
+            android:scaleType="center"
             android:tint="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
 </android.support.constraint.ConstraintLayout>
