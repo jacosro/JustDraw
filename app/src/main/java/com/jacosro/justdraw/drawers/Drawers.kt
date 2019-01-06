@@ -10,20 +10,22 @@ class Drawers {
     enum class Type(val iconId: Int) {
         LINE(R.drawable.ic_line),
         FREE(R.drawable.ic_scribble),
-        ERASER(R.drawable.ic_eraser)
+        ERASER(R.drawable.ic_eraser),
+        RECTANGLE(R.drawable.ic_rectangles)
     }
 
     companion object {
 
         fun newDrawer(context: Context, type: Type, paint: Paint): Drawer {
             return when (type) {
-                Type.LINE -> DrawerLine(context, paint)
-                Type.FREE -> DrawerFree(context, paint)
+                Type.LINE -> DrawerLine(paint)
+                Type.FREE -> DrawerFree(paint)
                 Type.ERASER -> {
                     val erasePaint = Paints.getErasePaint()
                     erasePaint.strokeWidth = paint.strokeWidth
-                    DrawerFree(context, erasePaint)
+                    DrawerFree(erasePaint)
                 }
+                Type.RECTANGLE -> DrawerRectangle(context, paint)
             }
         }
     }

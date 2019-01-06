@@ -1,9 +1,8 @@
 package com.jacosro.justdraw.util
 
 import com.jacosro.justdraw.figures.Figure
-import com.jacosro.justdraw.figures.NullFigure
+import com.jacosro.justdraw.figures.VoidFigure
 import java.util.*
-import kotlin.collections.ArrayList
 
 class FiguresQueue @JvmOverloads constructor(collection: Collection<Figure> = emptyList()) : AbstractCollection<Figure>(), Iterable<Figure> {
 
@@ -25,11 +24,11 @@ class FiguresQueue @JvmOverloads constructor(collection: Collection<Figure> = em
     }
 
     fun getLast(): Figure {
-        return queue.last ?: NullFigure()
+        return queue.last ?: VoidFigure()
     }
 
     fun getLastRemoved(): Figure {
-        return removedQueue.last ?: NullFigure()
+        return removedQueue.last ?: VoidFigure()
     }
 
     fun recoverLastRemoved() {
