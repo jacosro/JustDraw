@@ -1,68 +1,56 @@
 package com.jacosro.justdraw.drawers
 
-import android.content.Context
 import android.graphics.Paint
 import android.graphics.Point
-import android.util.Log
-import android.view.GestureDetector
 import android.view.MotionEvent
 import com.jacosro.justdraw.figures.Figure
 import com.jacosro.justdraw.figures.FigureCurve
 import com.jacosro.justdraw.figures.FigurePoint
-import com.jacosro.justdraw.figures.NullFigure
 import com.jacosro.justdraw.util.FiguresQueue
-import java.lang.NullPointerException
 
-open class DrawerFree(context: Context, paint: Paint) : Drawer(paint) {
+open class DrawerFree(paint: Paint) : Drawer(paint) {
 
     override val type: Drawers.Type = Drawers.Type.FREE
 
-    private val gestureDetector: GestureDetector
-    private var figure: Figure = NullFigure()
-
-    private var newFigure = false
-
-    init {
-        gestureDetector = GestureDetector(context, object: GestureDetector.SimpleOnGestureListener() {
-
-            override fun onDown(e: MotionEvent?): Boolean {
-                figure = NullFigure()
-                newFigure = false
-                return true
-            }
-
-            override fun onSingleTapUp(e: MotionEvent?): Boolean {
-                val point = Point(e!!.x.toInt(), e.y.toInt())
-
-                figure = FigurePoint(point, paint)
-                newFigure = true
-                return true
-            }
-
-            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-                if (figure !is FigureCurve) {
-                    val startPoint = Point(e1!!.x.toInt(), e1.y.toInt())
-                    figure = FigureCurve(mutableListOf(startPoint), paint)
-                    newFigure = true
-                } else {
-                    newFigure = false
-                }
-
-                figure as FigureCurve += Point(e2!!.x.toInt(), e2.y.toInt())
-
-                return true
-            }
-
-        })
-    }
+    private val pointersFigures: MutableMap<Int, Figure> = mutableMapOf()
 
     override fun onTouchEvent(event: MotionEvent, figures: FiguresQueue) {
-        newFigure = false
+        val index = event.actionIndex
+        val id = event.getPointerId(index)
 
-        gestureDetector.onTouchEvent(event)
+        when {
+            event.action == MotionEvent.ACTION_DOWN ||
+                    event.actionMasked == MotionEvent.ACTION_POINTER_DOWN -> {
+                pointersFigures[id] = FigurePoint(Point(event.getX(index).toInt(), event.getY(index).toInt()), paint)
+            }
 
-        if (newFigure) {
-            figures += figure
+            event.action == MotionEvent.ACTION_MOVE -> {
+                for (i in 0 until event.pointerCount) {
+                    val pointerId = event.getPointerId(i)
+                    val currentFigure = pointersFigures[pointerId]
+                    val currentPoint = Point(event.getX(i).toInt(), event.getY(i).toInt())
+
+                    if (currentFigure is FigurePoint) {
+                        val newFigure = FigureCurve(mutableListOf(currentFigure.point), paint)
+                        pointersFigures[pointerId] = newFigure
+                        figures += newFigure
+                    } else {
+                        currentFigure as FigureCurve += currentPoint
+                    }
+                }
+            }
+
+            event.action == MotionEvent.ACTION_UP ||
+                    event.actionMasked == MotionEvent.ACTION_POINTER_UP -> {
+                val currentPoint = Point(event.getX(index).toInt(), event.getY(index).toInt())
+
+                val currentFigure = pointersFigures[id]
+
+                if (currentFigure is FigurePoint &&
+                        currentFigure.isPoint(currentPoint)) {
+                    figures += currentFigure
+                }
+            }
         }
     }
 
