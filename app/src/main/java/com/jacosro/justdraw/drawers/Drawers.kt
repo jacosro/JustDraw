@@ -3,6 +3,8 @@ package com.jacosro.justdraw.drawers
 import android.content.Context
 import android.graphics.Paint
 import com.jacosro.justdraw.R
+import com.jacosro.justdraw.drawers.shapes.DrawerEllipse
+import com.jacosro.justdraw.drawers.shapes.DrawerRectangle
 import com.jacosro.justdraw.util.Paints
 
 class Drawers {
@@ -11,7 +13,8 @@ class Drawers {
         LINE(R.drawable.ic_line),
         FREE(R.drawable.ic_scribble),
         ERASER(R.drawable.ic_eraser),
-        RECTANGLE(R.drawable.ic_rectangles)
+        RECTANGLE(R.drawable.ic_rectangles),
+        ELLIPSE(R.drawable.ic_plain_circle)
     }
 
     companion object {
@@ -21,11 +24,12 @@ class Drawers {
                 Type.LINE -> DrawerLine(paint)
                 Type.FREE -> DrawerFree(paint)
                 Type.ERASER -> {
-                    val erasePaint = Paints.getErasePaint()
+                    val erasePaint = Paints.erasePaint
                     erasePaint.strokeWidth = paint.strokeWidth
                     DrawerFree(erasePaint)
                 }
                 Type.RECTANGLE -> DrawerRectangle(context, paint)
+                Type.ELLIPSE -> DrawerEllipse(context, paint)
             }
         }
     }

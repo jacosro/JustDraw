@@ -13,7 +13,7 @@
         <item>Free drawer</item>
         <item>Line drawer</item>
         <item>Rectangle drawer</item>
-        <item>Triangle drawer</item>
+        <item>Ellipse drawer</item>
     </string-array>
 
 </resources>

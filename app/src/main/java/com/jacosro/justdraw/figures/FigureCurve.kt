@@ -6,7 +6,7 @@ import android.graphics.Point
 import java.util.ArrayList
 
 open class FigureCurve constructor(
-        val points: MutableList<Point> = ArrayList(),
+        private val points: MutableList<Point> = ArrayList(),
         paint: Paint
     ) : Figure(paint) {
 

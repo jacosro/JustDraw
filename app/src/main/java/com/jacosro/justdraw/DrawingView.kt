@@ -17,17 +17,17 @@ class DrawingView @JvmOverloads constructor(
     ) : View(context, attrs, defStyleAttr) {
 
     private val figures = FiguresQueue()
-    var drawer: Drawer = Drawers.newDrawer(getContext(), Drawers.Type.FREE, Paints.getDefault()) // default
+    var drawer: Drawer = Drawers.newDrawer(getContext(), Drawers.Type.FREE, Paints.default) // default
 
     private var clearCanvas = false
     private var actionListener: OnActionListener? = null
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        drawer.onTouchEvent(event, figures)
+        val res = drawer.onTouchEvent(event, figures)
 
         invalidate()
 
-        return true
+        return res || super.onTouchEvent(event)
     }
 
     override fun onDraw(canvas: Canvas) {

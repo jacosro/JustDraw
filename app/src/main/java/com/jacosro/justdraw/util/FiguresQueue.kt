@@ -12,6 +12,8 @@ class FiguresQueue @JvmOverloads constructor(collection: Collection<Figure> = em
     private val queue: Deque<Figure>
     private val removedQueue: Deque<Figure>
 
+    private val onFiguresClearedListeners: MutableList<OnFiguresClearedListener> = mutableListOf()
+
     init {
         queue = ArrayDeque(collection)
         removedQueue = ArrayDeque()
@@ -55,9 +57,21 @@ class FiguresQueue @JvmOverloads constructor(collection: Collection<Figure> = em
     override fun clear() {
         queue.clear()
         removedQueue.clear()
+
+        for (listener in onFiguresClearedListeners)
+            listener.onCleared()
     }
 
     override fun iterator(): MutableIterator<Figure> {
         return queue.iterator()
     }
+
+    fun addOnFiguresClearedListener(listener: OnFiguresClearedListener) {
+        this.onFiguresClearedListeners += listener
+    }
+}
+
+@FunctionalInterface
+interface OnFiguresClearedListener {
+    fun onCleared()
 }

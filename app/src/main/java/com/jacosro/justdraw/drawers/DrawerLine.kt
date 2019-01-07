@@ -16,7 +16,7 @@ class DrawerLine(paint: Paint) : Drawer(paint) {
 
     private val pointersFigures: MutableMap<Int, Figure> = mutableMapOf()
 
-    override fun onTouchEvent(event: MotionEvent, figures: FiguresQueue) {
+    override fun onTouchEvent(event: MotionEvent, figures: FiguresQueue): Boolean {
         val index = event.actionIndex
         val id = event.getPointerId(index)
 
@@ -44,5 +44,7 @@ class DrawerLine(paint: Paint) : Drawer(paint) {
                 }
             }
         }
+
+        return true
     }
 }

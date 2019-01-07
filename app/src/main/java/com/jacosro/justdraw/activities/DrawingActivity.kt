@@ -2,19 +2,14 @@ package com.jacosro.justdraw.activities
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.*
 import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.OnColorSelectedListener
-import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.jacosro.justdraw.DrawingView
 import com.jacosro.justdraw.OnActionListener
@@ -32,12 +27,14 @@ class DrawingActivity : AppCompatActivity() {
     private lateinit var undoOptionMenu: MenuItem
     private lateinit var redoOptionMenu: MenuItem
 
-    private var paint: Paint = Paints.getDefault() // Modified with color and size
+    private var paint: Paint = Paints.default // Modified with color and size
 
     private val activeDrawers = listOf( // Same order than drawers string array
         Drawers.Type.ERASER,
         Drawers.Type.FREE,
-        Drawers.Type.LINE
+        Drawers.Type.LINE,
+        Drawers.Type.RECTANGLE,
+        Drawers.Type.ELLIPSE
     )
 
     private lateinit var drawerDialog: AlertDialog
