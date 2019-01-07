@@ -62,8 +62,21 @@ class DrawingActivity : AppCompatActivity() {
     private fun initialize() {
         val listView = ListView(this)
 
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                resources.getStringArray(R.array.drawers))
+        val items = mutableListOf<Map<String, String>>()
+        val drawersNames = resources.getStringArray(R.array.drawers)
+
+        for (i in 0 until activeDrawers.size) {
+            items += mapOf(
+                    "icon" to activeDrawers[i].iconId.toString(),
+                    "name" to drawersNames[i]
+            )
+        }
+
+        val from = arrayOf("icon", "name")
+        val to = arrayOf(R.id.drawerIcon, R.id.drawerName)
+
+        val adapter = SimpleAdapter(this, items, R.layout.layout_drawer, from, to.toIntArray())
+
 
         listView.adapter = adapter
 
